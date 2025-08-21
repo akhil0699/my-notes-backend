@@ -12,7 +12,7 @@ class DatabaseConnection:
     def __init__(self, database_url: str) -> None:
         print("Scan pem file")
         self.find_file("secret.pem", "/")
-        print("Scanned")
+        print("Scanned",  app_config.DATABASE_CA_CERT_FILE_PATH)
         self.engine = create_engine(
             database_url,
             connect_args={"ssl": {"ca": app_config.DATABASE_CA_CERT_FILE_PATH}},
