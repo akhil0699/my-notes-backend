@@ -12,10 +12,10 @@ class DatabaseConnection:
     def __init__(self, database_url: str) -> None:
         print("Scan pem file")
         self.find_file("secret.pem", "/")
-        print("Scanned",  app_config.DATABASE_CA_CERT_FILE_PATH)
+        print("Scanned",  "/etc/secrets/secret.pem")
         self.engine = create_engine(
             database_url,
-            connect_args={"ssl": {"ca": app_config.DATABASE_CA_CERT_FILE_PATH}},
+            connect_args={"ssl": {"ca": "/etc/secrets/secret.pem"}},
         )
         self.SessionLocal = sessionmaker(
             autocommit=False, autoflush=False, bind=self.engine
