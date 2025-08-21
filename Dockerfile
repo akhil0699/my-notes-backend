@@ -37,6 +37,10 @@ COPY notes_service ./notes_service
 
 COPY gunicorn.conf.py .
 
+RUN mkdir -p ./notes_service/certs
+
+COPY /etc/secrets/secret.pem ./notes_service/certs
+
 # Run Unprivileged
 RUN addgroup -S app && adduser -S app -G app
 
