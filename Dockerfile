@@ -35,7 +35,16 @@ COPY gunicorn.conf.py .
 # Create certs directory
 RUN mkdir -p ./notes_service/certs
 
-# Create startup script to handle SSL certificate permissions
+# Install shadow package for usermod (Alpine doesn't have it by default)
+RUN apk add shadow
+
+# Create user and add to group 1000 (required for Render secret file access)
+RUN addgroup -g 1000 secrets && \
+    addgroup -S app && \
+    adduser -S app -G app && \
+    usermod -a -G 1000 app
+
+# Create startup script to handle SSL certificate
 RUN echo '#!/bin/sh' > /start.sh && \
     echo 'echo "🔐 Setting up SSL certificates..."' >> /start.sh && \
     echo 'if [ -f "/etc/secrets/secret.pem" ]; then' >> /start.sh && \
@@ -48,9 +57,8 @@ RUN echo '#!/bin/sh' > /start.sh && \
     echo 'exec gunicorn notes_service.main:app -c gunicorn.conf.py' >> /start.sh && \
     chmod +x /start.sh
 
-# Create user AFTER setting up files and scripts
-RUN addgroup -S app && adduser -S app -G app && \
-    chown -R app:app /app
+# Set ownership
+RUN chown -R app:app /app
 
 USER app
 
