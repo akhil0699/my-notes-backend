@@ -2,6 +2,7 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
+from notes_service.config.settings import app_config
 
 
 class DatabaseConnection:
@@ -10,7 +11,7 @@ class DatabaseConnection:
     def __init__(self, database_url: str) -> None:
         self.engine = create_engine(
             database_url,
-            connect_args={"ssl": {"ca": "/home/calance/Downloads/ca.pem"}},
+            connect_args={"ssl": {"ca": app_config.DATABASE_CA_CERT_FILE_PATH}},
         )
         self.SessionLocal = sessionmaker(
             autocommit=False, autoflush=False, bind=self.engine

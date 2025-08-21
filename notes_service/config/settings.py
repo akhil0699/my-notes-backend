@@ -9,6 +9,7 @@ class AppConfig(BaseSettings):
     ALLOW_ORIGINS: str = "*"
     ALLOW_CREDENTIALS: bool = True
     APP_URL: str = "http://localhost:8001"
+    DATABASE_CA_CERT_FILE_PATH: str
 
     class Config:
         env_file = ".env"
