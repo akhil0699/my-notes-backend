@@ -35,8 +35,6 @@ COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY notes_service ./notes_service
 
-COPY certs ./certs
-
 COPY gunicorn.conf.py .
 
 # Run Unprivileged
