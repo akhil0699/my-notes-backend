@@ -7,7 +7,7 @@ max_requests_jitter = 50  # pylint: disable=C0103
 reload = False
 
 capture_output = True
-bind = "0.0.0.0:8000"  # pylint: disable=C0103
+bind = "0.0.0.0:10000"  # pylint: disable=C0103
 
 worker_class = "uvicorn.workers.UvicornWorker"  # pylint: disable=C0103
 workers = (multiprocessing.cpu_count() * 2) + 1
