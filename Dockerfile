@@ -17,7 +17,7 @@ COPY pyproject.toml poetry.lock ./
 RUN python -m pip install --upgrade pip && \
     python -m pip install poetry==1.6.1 && \
     touch README.md && \
-    poetry install --without dev --no-root && \
+    poetry install --no-root && \
     rm -rf $POETRY_CACHE_DIR && \
     pip uninstall poetry -y
 
