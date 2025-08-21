@@ -1,0 +1,9 @@
+# Venv
+.venv
+venv
+
+# Debugger files
+.vscode/
+
+# Env
+.env
